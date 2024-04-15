@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="99c800b4-6f0b-4a5a-a658-b5c18e6b2b20" name="Changes" comment="" />
+    <list default="true" id="36e8f956-d867-4173-88ac-a4bbd6f7b22e" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/MorseCode.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -20,9 +26,9 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 4
+  "associatedIndex": 5
 }]]></component>
-  <component name="ProjectId" id="2f9WdAs7EnCVzuah292x1WcMGrm" />
+  <component name="ProjectId" id="2f9XbsqfMG0qSd2XSNn4ROyymwe" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -39,14 +45,25 @@
     "show.migrate.to.gradle.popup": "false"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter">
+      <option name="filePath" value="$PROJECT_DIR$/lib/main.dart" />
+      <method v="2" />
+    </configuration>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="99c800b4-6f0b-4a5a-a658-b5c18e6b2b20" name="Changes" comment="" />
-      <created>1713213858985</created>
+      <changelist id="36e8f956-d867-4173-88ac-a4bbd6f7b22e" name="Changes" comment="" />
+      <created>1713214343447</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1713213858985</updated>
+      <updated>1713214343447</updated>
     </task>
     <servers />
   </component>
