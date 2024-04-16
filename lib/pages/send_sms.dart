@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:morse_code_project/components/sms_dropdown.dart';
-import 'package:morse_code_project/utils/morse_functions.dart';
+import 'package:morse_code_project/utils/helper_functions.dart';
 import 'dart:developer' as developer;
 
 class SendSMS extends StatefulWidget {
-  const SendSMS({Key? key}) : super(key: key);
+  const SendSMS({super.key});
 
   @override
   _SendSMSState createState() => _SendSMSState();
@@ -72,7 +72,8 @@ class _SendSMSState extends State<SendSMS> {
               const SizedBox(height: 40),
               ElevatedButton(
                   onPressed: () {
-                    developer.log(fromTextToMorse(_message));
+                    String recipient = _prefix.substring(_prefix.indexOf("("), _prefix.indexOf(")")) + _phoneNumber.trim().replaceAll(" ", "");
+                    sendMorseCode(_message, recipient);
                   },
                   style: ElevatedButton.styleFrom(
                     minimumSize: const Size(200, 50),
