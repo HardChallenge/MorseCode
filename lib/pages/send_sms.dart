@@ -72,7 +72,7 @@ class _SendSMSState extends State<SendSMS> {
               const SizedBox(height: 40),
               ElevatedButton(
                   onPressed: () {
-                    String recipient = _prefix.substring(_prefix.indexOf("("), _prefix.indexOf(")")) + _phoneNumber.trim().replaceAll(" ", "");
+                    String recipient = _prefix.substring(_prefix.indexOf("(") + 1, _prefix.indexOf(")")) + _phoneNumber.trim().replaceAll(" ", "");
                     sendMorseCode(_message, recipient);
                   },
                   style: ElevatedButton.styleFrom(

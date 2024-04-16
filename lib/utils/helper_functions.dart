@@ -1,5 +1,7 @@
 import 'morse_coding.dart';
 import 'package:flutter_sms/flutter_sms.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:flutter_sms_inbox/flutter_sms_inbox.dart';
 
 String fromTextToMorse(String text) {
   String morse = '';
@@ -27,7 +29,11 @@ void sendMorseCode(String text, String recipient) async {
   print(result);
 }
 
-bool isValidMorse(String morse) {
+bool isValidMorse(String? morse) {
+  if (morse == null) {
+    return false;
+  }
+
   List<String> words = morse.trim().split('\n');
   for (int i = 0; i < words.length; i++) {
     String word = words[i];
@@ -42,4 +48,19 @@ bool isValidMorse(String morse) {
     }
   }
   return true;
+}
+
+Future<String?> getFirstMorseMessageWith(String phoneNumber) async {
+  PermissionStatus status = await Permission.sms.request();
+  if (status.isDenied) {
+    return '';
+  }
+  final SmsQuery query = SmsQuery();
+  List<SmsMessage> messages = await query.querySms(
+                                      sort: true,
+                                      address: phoneNumber,
+                                      kinds: [SmsQueryKind.inbox, SmsQueryKind.sent]
+                                    );
+
+  return messages.isEmpty ? '' : messages[0].body;
 }
