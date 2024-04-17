@@ -27,9 +27,7 @@ class _SendSMSState extends State<SendSMS> {
               SMSDropdown(
                 initialValue: _prefix,
                 onChanged: (String value) {
-                  setState(() {
                     _prefix = value;
-                  });
                 },
               ),
               const SizedBox(height: 20),
@@ -73,6 +71,7 @@ class _SendSMSState extends State<SendSMS> {
               ElevatedButton(
                   onPressed: () {
                     String recipient = _prefix.substring(_prefix.indexOf("(") + 1, _prefix.indexOf(")")) + _phoneNumber.trim().replaceAll(" ", "");
+                    developer.log("Recipient: $recipient");
                     sendMorseCode(_message, recipient);
                   },
                   style: ElevatedButton.styleFrom(

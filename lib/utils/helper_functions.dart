@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 import 'morse_coding.dart';
 import 'package:flutter_sms/flutter_sms.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -63,4 +65,26 @@ Future<String?> getFirstMorseMessageWith(String phoneNumber) async {
                                     );
 
   return messages.isEmpty ? '' : messages[0].body;
+}
+
+void buildDialog(BuildContext context, String title, String content) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Center(child: Text(title)),
+        content: SingleChildScrollView(
+          child: Text(content),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: Center(child: Text('OK')),
+          )
+        ],
+      );
+    }
+  );
 }

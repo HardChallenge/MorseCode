@@ -29,7 +29,9 @@ class _SMSDropdownState extends State<SMSDropdown> {
           _selectedValue = value;
         });
         if (widget.onChanged != null) {
-          widget.onChanged!(value!);
+          setState(() {
+            widget.onChanged!(value!);
+          });
         }
       },
       items: prefixes.map<DropdownMenuItem<String>>((String value) {
