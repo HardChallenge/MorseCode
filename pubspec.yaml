@@ -33,6 +33,7 @@ dependencies:
   flutter_sms: ^2.3.3
   permission_handler: ^10.2.0
   flutter_sms_inbox: ^1.0.3
+  torch_light: ^1.0.0
 
 
   # The following adds the Cupertino Icons font to your application.

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:torch_light/torch_light.dart';
 
 import 'morse_coding.dart';
 import 'package:flutter_sms/flutter_sms.dart';
@@ -87,4 +88,28 @@ void buildDialog(BuildContext context, String title, String content) {
       );
     }
   );
+}
+
+Future<bool> isTorchAvailable() async {
+  try {
+    return await TorchLight.isTorchAvailable();
+  } on Exception catch (_) {
+    return false;
+  }
+}
+
+Future<void> turnOnTorch() async {
+  try {
+    await TorchLight.enableTorch();
+  } on Exception catch (_) {
+    print('Error turning on torch');
+  }
+}
+
+Future<void> turnOffTorch() async {
+  try {
+    await TorchLight.disableTorch();
+  } on Exception catch (_) {
+    print('Error turning off torch');
+  }
 }

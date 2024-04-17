@@ -103,6 +103,7 @@ SingleChildScrollView buildMorseTransmissionContent(Wrapper wrapper){
             }
             wrapper.obj["betweenLettersDuration"] = Duration(milliseconds: int.parse(value));
           }),
+        const SizedBox(height: 20)
       ],
     )
   );

@@ -20,6 +20,7 @@ class MorseCodeState extends State<MorseCode> with SingleTickerProviderStateMixi
   double componentSize = 120.0;
   String _textTransmitted = '';
   String _prefix = "Romania (+40)", _phoneNumber = "723 523 103";
+  bool _hasTorch = false, _useTorch = false;
 
   late TextEditingController _messageController;
   late TextEditingController _transmittedMessageController;
@@ -37,6 +38,10 @@ class MorseCodeState extends State<MorseCode> with SingleTickerProviderStateMixi
     setState(() {
       _lightColor = Colors.red;
     });
+  }
+
+  void updateUseTorch(bool value){
+    _useTorch = value;
   }
 
   // Funcție pentru a anima codul Morse
@@ -67,6 +72,9 @@ class MorseCodeState extends State<MorseCode> with SingleTickerProviderStateMixi
             continue;
           }
           _animateCode();
+          if (_useTorch) {
+            await turnOnTorch();
+          }
           // Așteaptă durata curentă înainte de a trece la următoarea literă
           await Future.delayed(currentDuration);
           setState(() {
@@ -75,6 +83,9 @@ class MorseCodeState extends State<MorseCode> with SingleTickerProviderStateMixi
           });
           // Așteaptă un scurt timp între luminare și stingere
           await Future.delayed(currentDuration);
+          if (_useTorch) {
+            await turnOffTorch();
+          }
 
           // Asteeapta un timp între litere
           await Future.delayed(betweenLettersDuration);
@@ -259,7 +270,9 @@ class MorseCodeState extends State<MorseCode> with SingleTickerProviderStateMixi
               ),
             const SizedBox(height: 20.0),
             ElevatedButton(
-              onPressed: () {
+              onPressed: () async {
+                _hasTorch = await isTorchAvailable();
+                _useTorch = _hasTorch;
                 setState(() {
                   if (_messageField!.isEmpty && _messageImported!.isEmpty){
                     buildDialog(context, 'Eroare', 'Introduceți un mesaj sau importați unul din SMS-uri.');
@@ -270,17 +283,21 @@ class MorseCodeState extends State<MorseCode> with SingleTickerProviderStateMixi
                       "dashDuration": dashDuration,
                       "betweenLettersDuration": betweenLettersDuration,
                       "betweenWordsDuration": betweenWordsDuration,
+                      "useTorch": _hasTorch,
                       "dotDurationController": dotDurationController,
                       "dashDurationController": dashDurationController,
                       "betweenLettersDurationController": betweenLettersDurationController,
                       "betweenWordsDurationController": betweenWordsDurationController
                       });
+
+                  SingleChildScrollView dialogContent = buildMorseTransmissionContent(wrapper);
+
                   showDialog(
                       context: context,
                       builder: (BuildContext context){
                         return AlertDialog(
                           title: const Text('Configuration', style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold)),
-                          content: buildMorseTransmissionContent(wrapper),
+                          content: dialogContent,
                           actions: [
                             Align(
                                 alignment: Alignment.center,
@@ -298,6 +315,7 @@ class MorseCodeState extends State<MorseCode> with SingleTickerProviderStateMixi
                                     }
                                     componentSize *= 2;
                                     _isTransmitting = true;
+                                    debugPrint("Use Torch: $_useTorch");
                                     Navigator.of(context).pop();
                                     _animateMorse(morseCodeToBeTransmitted!);
                                   },
