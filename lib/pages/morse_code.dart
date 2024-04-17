@@ -26,9 +26,9 @@ class MorseCodeState extends State<MorseCode> with SingleTickerProviderStateMixi
   late TextEditingController _transmittedMessageController;
   late TextEditingController dotDurationController, dashDurationController, betweenLettersDurationController, betweenWordsDurationController;
 
-  Duration dotDuration = const Duration(milliseconds: 200);
+  Duration dotDuration = const Duration(milliseconds: 100);
   Duration dashDuration = const Duration(milliseconds: 500);
-  Duration betweenLettersDuration = const Duration(milliseconds: 50);
+  Duration betweenLettersDuration = const Duration(milliseconds: 100);
   Duration betweenWordsDuration = const Duration(milliseconds: 400);
   Duration currentDuration = const Duration();
 

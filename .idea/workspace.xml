@@ -4,15 +4,8 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="36e8f956-d867-4173-88ac-a4bbd6f7b22e" name="Changes" comment="Added flashlight functionality">
-      <change afterPath="$PROJECT_DIR$/lib/assets/images/sea.jpeg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/app.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/components/sms_dropdown.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/components/sms_dropdown.dart" afterDir="false" />
+    <list default="true" id="36e8f956-d867-4173-88ac-a4bbd6f7b22e" name="Changes" comment="Added minimal styling to components">
       <change beforePath="$PROJECT_DIR$/lib/pages/morse_code.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/morse_code.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/send_sms.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/send_sms.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/utils/helper_functions.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/utils/helper_functions.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -148,7 +141,15 @@
       <option name="project" value="LOCAL" />
       <updated>1713356498819</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Added minimal styling to components">
+      <option name="closed" value="true" />
+      <created>1713378334554</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1713378334554</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -181,6 +182,7 @@
     <MESSAGE value="Added functionality for transmitting morse code" />
     <MESSAGE value="Added configuration display when transmitting morse code" />
     <MESSAGE value="Added flashlight functionality" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added flashlight functionality" />
+    <MESSAGE value="Added minimal styling to components" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added minimal styling to components" />
   </component>
 </project>
