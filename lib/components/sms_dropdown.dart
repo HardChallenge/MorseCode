@@ -22,26 +22,35 @@ class _SMSDropdownState extends State<SMSDropdown> {
 
   @override
   Widget build(BuildContext context) {
-    return DropdownButton<String>(
-      value: _selectedValue,
-      onChanged: (String? value) {
-        setState(() {
-          _selectedValue = value;
-        });
-        if (widget.onChanged != null) {
-          setState(() {
-            widget.onChanged!(value!);
-          });
-        }
-      },
-      items: prefixes.map<DropdownMenuItem<String>>((String value) {
-        return DropdownMenuItem<String>(
-          value: value,
-          child: Center(
-            child: Text(value, textAlign: TextAlign.center),
-          ),
-        );
-      }).toList(),
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.black),
+      ),
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+            child:DropdownButton<String>(
+              underline: Container(),
+            value: _selectedValue,
+            onChanged: (String? value) {
+              setState(() {
+                _selectedValue = value;
+              });
+              if (widget.onChanged != null) {
+                setState(() {
+                  widget.onChanged!(value!);
+                });
+              }
+            },
+            items: prefixes.map<DropdownMenuItem<String>>((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Center(
+                  child: Text(value, textAlign: TextAlign.center),
+                ),
+              );
+            }).toList(),
+          )
+        )
     );
   }
 }

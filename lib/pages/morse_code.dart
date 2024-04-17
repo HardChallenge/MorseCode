@@ -27,16 +27,18 @@ class MorseCodeState extends State<MorseCode> with SingleTickerProviderStateMixi
   late TextEditingController dotDurationController, dashDurationController, betweenLettersDurationController, betweenWordsDurationController;
 
   Duration dotDuration = const Duration(milliseconds: 200);
-  Duration dashDuration = const Duration(milliseconds: 600);
+  Duration dashDuration = const Duration(milliseconds: 500);
   Duration betweenLettersDuration = const Duration(milliseconds: 50);
   Duration betweenWordsDuration = const Duration(milliseconds: 400);
   Duration currentDuration = const Duration();
 
-  Color _lightColor = Colors.black;
+  final Color _offColor = Colors.black, _onColor = Colors.red[500]!;
+
+  Color _circleColor = Colors.black;
 
   void _animateCode(){
     setState(() {
-      _lightColor = Colors.red;
+      _circleColor = _onColor;
     });
   }
 
@@ -44,12 +46,12 @@ class MorseCodeState extends State<MorseCode> with SingleTickerProviderStateMixi
     _useTorch = value;
   }
 
-  // Funcție pentru a anima codul Morse
   void _animateMorse(String morseCode) async {
     List<String> phrases = morseCode.trim().split('\n');
-    debugPrint("Phrases: $phrases.length");
+
     for (int i = 0; i < phrases.length && _isTransmitting; i++) {
       String phrase = phrases[i];
+
       List<String> words = phrase.trim().split(RegExp(r"\s+"));
       for (int j = 0; j < words.length && _isTransmitting; j++) {
         String word = words[j];
@@ -63,6 +65,7 @@ class MorseCodeState extends State<MorseCode> with SingleTickerProviderStateMixi
           _transmittedMessageController.text = _textTransmitted;
         });
         List<String> letters = word.trim().split('');
+
         for (int k = 0; k < letters.length && _isTransmitting; k++) {
           if (letters[k] == '.') {
             currentDuration = dotDuration;
@@ -79,7 +82,7 @@ class MorseCodeState extends State<MorseCode> with SingleTickerProviderStateMixi
           await Future.delayed(currentDuration);
           setState(() {
             // Resetarea culorii la negru după expirarea duratei
-            _lightColor = Colors.black;
+            _circleColor = _offColor;
           });
           // Așteaptă un scurt timp între luminare și stingere
           await Future.delayed(currentDuration);
@@ -121,9 +124,17 @@ class MorseCodeState extends State<MorseCode> with SingleTickerProviderStateMixi
   @override
   Widget build(BuildContext context) {
     SingleChildScrollView upper = SingleChildScrollView(
-      child: Row(
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          _isTransmitting ? const SizedBox() :
+          const Text("Send Morse Code",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center),
+          _isTransmitting ? const SizedBox() : const SizedBox(height: 20.0),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
           Expanded(
             flex: 2,
             child: AnimatedContainer(
@@ -131,10 +142,10 @@ class MorseCodeState extends State<MorseCode> with SingleTickerProviderStateMixi
               width: componentSize,
               height: componentSize,
               decoration: BoxDecoration(
-                color: _lightColor,
+                color: _circleColor,
                 shape: BoxShape.circle,
               ),
-              curve: Curves.fastEaseInToSlowEaseOut,
+              curve: Curves.easeOutCirc,
             ),
           ),
           SizedBox(width: componentSize / 5.0),
@@ -146,7 +157,8 @@ class MorseCodeState extends State<MorseCode> with SingleTickerProviderStateMixi
             ),
           ),
         ],
-      ),
+      )],
+      )
     );
 
     Wrapper wrapper = Wrapper({"prefix": _prefix, "phoneNumber" : _phoneNumber});
@@ -157,7 +169,7 @@ class MorseCodeState extends State<MorseCode> with SingleTickerProviderStateMixi
             TextField(
               controller: _messageController,
               keyboardType: TextInputType.multiline,
-              maxLines: 5,
+              maxLines: 3,
               decoration: const InputDecoration(
                 labelText: 'Mesaj',
                 hintText: 'Introduceți mesajul',
@@ -175,7 +187,9 @@ class MorseCodeState extends State<MorseCode> with SingleTickerProviderStateMixi
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  ElevatedButton(
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(12.0, 0.0, 0.0, 0.0),
+                  child: ElevatedButton(
                     onPressed: () {
                       showDialog(
                           context: context,
@@ -183,8 +197,10 @@ class MorseCodeState extends State<MorseCode> with SingleTickerProviderStateMixi
                             return Center(
                                 child: SingleChildScrollView(
                                     child: AlertDialog(
+                                        backgroundColor: Colors.amber[100],
                                         title: const Text(
                                             'Se va importa primul Morse Code din lista de mesaje SMS cu numarul de telefon selectat.',
+                                            textAlign: TextAlign.center,
                                             style: TextStyle(
                                               fontSize: 20.0,
                                               fontWeight: FontWeight.bold,
@@ -219,15 +235,17 @@ class MorseCodeState extends State<MorseCode> with SingleTickerProviderStateMixi
                       );
                     },
                     child: Text("Importa mesaj din SMS"),
+                  )
                   ),
                   const SizedBox(width: 20.0),
-                  _messageImported!.isEmpty ? const SizedBox(width: 0, height: 0) :
+                  _messageImported!.isEmpty ? const SizedBox():
                                               TextButton(
                                                 onPressed: () {
                                                   showDialog(
                                                       context: context,
                                                       builder: (BuildContext context){
                                                         return AlertDialog(
+                                                          backgroundColor: Colors.amber[100],
                                                           title: const Center(child: Text('Mesaj importat')),
                                                           content: SingleChildScrollView(
                                                             child: TextField(
@@ -296,6 +314,7 @@ class MorseCodeState extends State<MorseCode> with SingleTickerProviderStateMixi
                       context: context,
                       builder: (BuildContext context){
                         return AlertDialog(
+                          backgroundColor: Colors.amber[100],
                           title: const Text('Configuration', style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold)),
                           content: dialogContent,
                           actions: [
@@ -349,7 +368,7 @@ class MorseCodeState extends State<MorseCode> with SingleTickerProviderStateMixi
               onPressed: () {
                 setState(() {
                   _currentLetter = '-';
-                  _lightColor = Colors.black;
+                  _circleColor = Colors.black;
                   _textTransmitted = '';
                   setState(() {
                     _transmittedMessageController.text = _textTransmitted;
@@ -365,9 +384,10 @@ class MorseCodeState extends State<MorseCode> with SingleTickerProviderStateMixi
     );
 
     return Scaffold(
+      backgroundColor: Colors.amber[100],
       body: Center(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(20.0),
+          padding: const EdgeInsets.all(20),
           child: Column(
             children: [
               upper,
@@ -377,6 +397,6 @@ class MorseCodeState extends State<MorseCode> with SingleTickerProviderStateMixi
           ),
         ),
       ),
-    );
+      );
   }
 }

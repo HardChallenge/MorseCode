@@ -13,17 +13,22 @@ class SendSMS extends StatefulWidget {
 class _SendSMSState extends State<SendSMS> {
   String _prefix = "Romania (+40)",
       _phoneNumber = "723 523 103",
-      _message = "Hello, World!";
+      _message = '';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.amber[100],
       body: Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(20),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
+              const Text("Convert text to Morse Code and send it via SMS",
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center),
+              const SizedBox(height: 20),
               SMSDropdown(
                 initialValue: _prefix,
                 onChanged: (String value) {
@@ -73,10 +78,8 @@ class _SendSMSState extends State<SendSMS> {
                     String recipient = _prefix.substring(_prefix.indexOf("(") + 1, _prefix.indexOf(")")) + _phoneNumber.trim().replaceAll(" ", "");
                     sendMorseCode(_message, recipient);
                   },
-                  style: ElevatedButton.styleFrom(
-                    minimumSize: const Size(200, 50),
-                  ),
-                  child: const Text('Send')),
+                  child: const Text('Send'),
+              ),
               const SizedBox(height: 100),
             ],
           ),

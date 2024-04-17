@@ -73,9 +73,10 @@ void buildDialog(BuildContext context, String title, String content) {
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
+        backgroundColor: Colors.amber[100],
         title: Center(child: Text(title)),
         content: SingleChildScrollView(
-          child: Text(content),
+          child: Text(content, textAlign: TextAlign.center),
         ),
         actions: [
           TextButton(
