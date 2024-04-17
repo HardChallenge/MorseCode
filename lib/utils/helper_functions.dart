@@ -14,7 +14,7 @@ String fromTextToMorse(String text) {
       continue;
     }
     for (int j = 0; j < word.length; j++) {
-      morse += '${letterToMorse[word[j].toUpperCase()] ?? "?"} ';
+      morse += '${letterToMorse[word[j]] ?? "?"} ';
     }
     morse += (i != words.length - 1) ? '\n' : '';
   }

@@ -71,7 +71,6 @@ class _SendSMSState extends State<SendSMS> {
               ElevatedButton(
                   onPressed: () {
                     String recipient = _prefix.substring(_prefix.indexOf("(") + 1, _prefix.indexOf(")")) + _phoneNumber.trim().replaceAll(" ", "");
-                    developer.log("Recipient: $recipient");
                     sendMorseCode(_message, recipient);
                   },
                   style: ElevatedButton.styleFrom(

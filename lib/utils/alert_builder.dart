@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:morse_code_project/components/sms_dropdown.dart';
 
-class ImportWrapper{
-  String prefix, phoneNumber;
+class Wrapper{
+  Map<dynamic, dynamic> obj = {};
 
-  ImportWrapper(this.prefix, this.phoneNumber);
+  Wrapper(this.obj);
 }
 
-SingleChildScrollView buildImportContent(ImportWrapper wrapper){
+SingleChildScrollView buildImportContent(Wrapper wrapper){
   SMSDropdown dropdown = SMSDropdown(
-    initialValue: wrapper.prefix
+    initialValue: wrapper.obj["prefix"]
   );
 
   Flexible phoneInput = Flexible(
@@ -23,7 +23,7 @@ SingleChildScrollView buildImportContent(ImportWrapper wrapper){
         border: OutlineInputBorder(),
       ),
       onChanged: (String value) {
-          wrapper.phoneNumber = value;
+          wrapper.obj["phoneNumber"] = value;
       }),
     );
 
@@ -35,6 +35,75 @@ SingleChildScrollView buildImportContent(ImportWrapper wrapper){
         const SizedBox(height: 20),
         phoneInput
       ]
+    )
+  );
+}
+
+SingleChildScrollView buildMorseTransmissionContent(Wrapper wrapper){
+  return SingleChildScrollView(
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        TextField(
+          controller: wrapper.obj["dotDurationController"],
+          keyboardType: TextInputType.number,
+          decoration: const InputDecoration(
+            labelText: 'Dot duration (ms)',
+            prefixIcon: Icon(Icons.timer),
+            border: OutlineInputBorder(),
+          ),
+          onChanged: (String value) {
+            if (value.isEmpty) {
+              return;
+            }
+            wrapper.obj["dotDuration"] = Duration(milliseconds: int.parse(value));
+          }),
+        const SizedBox(height: 20),
+        TextField(
+          controller: wrapper.obj["dashDurationController"],
+          keyboardType: TextInputType.number,
+          decoration: const InputDecoration(
+            labelText: 'Dash duration (ms)',
+            prefixIcon: Icon(Icons.timer),
+            border: OutlineInputBorder(),
+          ),
+          onChanged: (String value) {
+            if (value.isEmpty) {
+              return;
+            }
+            wrapper.obj["lineDuration"] = Duration(milliseconds: int.parse(value));
+          }),
+        const SizedBox(height: 20),
+        TextField(
+          controller: wrapper.obj["betweenWordsDurationController"],
+          keyboardType: TextInputType.number,
+          decoration: const InputDecoration(
+            labelText: 'Between words (ms)',
+            prefixIcon: Icon(Icons.timer),
+            border: OutlineInputBorder(),
+          ),
+          onChanged: (String value) {
+            if (value.isEmpty) {
+              return;
+            }
+            wrapper.obj["betweenWordsDuration"] = Duration(milliseconds: int.parse(value));
+          }),
+        const SizedBox(height: 20),
+        TextField(
+          controller: wrapper.obj["betweenLettersDurationController"],
+          keyboardType: TextInputType.number,
+          decoration: const InputDecoration(
+            labelText: 'Between letters (ms)',
+            prefixIcon: Icon(Icons.timer),
+            border: OutlineInputBorder(),
+          ),
+          onChanged: (String value) {
+            if (value.isEmpty) {
+              return;
+            }
+            wrapper.obj["betweenLettersDuration"] = Duration(milliseconds: int.parse(value));
+          }),
+      ],
     )
   );
 }
