@@ -4,8 +4,11 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="36e8f956-d867-4173-88ac-a4bbd6f7b22e" name="Changes" comment="Added minimal styling to components">
+    <list default="true" id="36e8f956-d867-4173-88ac-a4bbd6f7b22e" name="Changes" comment="Changed dotDuration 200-&gt;100ms for better visibility and between letters (50-&gt;100)">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/pages/morse_code.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/morse_code.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/utils/alert_builder.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/utils/alert_builder.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/utils/helper_functions.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/utils/helper_functions.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -149,7 +152,15 @@
       <option name="project" value="LOCAL" />
       <updated>1713378334554</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Changed dotDuration 200-&gt;100ms for better visibility and between letters (50-&gt;100)">
+      <option name="closed" value="true" />
+      <created>1713378948583</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1713378948583</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -183,6 +194,7 @@
     <MESSAGE value="Added configuration display when transmitting morse code" />
     <MESSAGE value="Added flashlight functionality" />
     <MESSAGE value="Added minimal styling to components" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added minimal styling to components" />
+    <MESSAGE value="Changed dotDuration 200-&gt;100ms for better visibility and between letters (50-&gt;100)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changed dotDuration 200-&gt;100ms for better visibility and between letters (50-&gt;100)" />
   </component>
 </project>

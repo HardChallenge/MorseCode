@@ -56,7 +56,11 @@ SingleChildScrollView buildMorseTransmissionContent(Wrapper wrapper){
             if (value.isEmpty) {
               return;
             }
-            wrapper.obj["dotDuration"] = Duration(milliseconds: int.parse(value));
+            try {
+              wrapper.obj["dotDuration"] = Duration(milliseconds: int.parse(value));
+            } catch (e) {
+              print(e);
+            }
           }),
         const SizedBox(height: 20),
         TextField(
@@ -71,7 +75,11 @@ SingleChildScrollView buildMorseTransmissionContent(Wrapper wrapper){
             if (value.isEmpty) {
               return;
             }
-            wrapper.obj["lineDuration"] = Duration(milliseconds: int.parse(value));
+            try {
+              wrapper.obj["dashDuration"] = Duration(milliseconds: int.parse(value));
+            } catch (e) {
+              print(e);
+            }
           }),
         const SizedBox(height: 20),
         TextField(
@@ -86,7 +94,11 @@ SingleChildScrollView buildMorseTransmissionContent(Wrapper wrapper){
             if (value.isEmpty) {
               return;
             }
-            wrapper.obj["betweenWordsDuration"] = Duration(milliseconds: int.parse(value));
+            try {
+              wrapper.obj["betweenWordsDuration"] = Duration(milliseconds: int.parse(value));
+            } catch (e) {
+              print(e);
+            }
           }),
         const SizedBox(height: 20),
         TextField(
@@ -101,7 +113,11 @@ SingleChildScrollView buildMorseTransmissionContent(Wrapper wrapper){
             if (value.isEmpty) {
               return;
             }
-            wrapper.obj["betweenLettersDuration"] = Duration(milliseconds: int.parse(value));
+            try {
+              wrapper.obj["betweenLettersDuration"] = Duration(milliseconds: int.parse(value));
+            } catch (e) {
+              print(e);
+            }
           }),
         const SizedBox(height: 20)
       ],

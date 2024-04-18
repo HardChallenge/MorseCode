@@ -293,7 +293,7 @@ class MorseCodeState extends State<MorseCode> with SingleTickerProviderStateMixi
                 _useTorch = _hasTorch;
                 setState(() {
                   if (_messageField!.isEmpty && _messageImported!.isEmpty){
-                    buildDialog(context, 'Eroare', 'Introduceți un mesaj sau importați unul din SMS-uri.');
+                    buildErrorDialog(context, 'Eroare', 'Introduceți un mesaj sau importați unul din SMS-uri.');
                     return;
                   }
                   Wrapper wrapper = Wrapper({
@@ -322,6 +322,11 @@ class MorseCodeState extends State<MorseCode> with SingleTickerProviderStateMixi
                                 alignment: Alignment.center,
                                 child: TextButton(
                                   onPressed: () {
+                                    String validation = isValidConfiguration(wrapper);
+                                    if (validation != ''){
+                                      buildErrorDialog(context, 'Eroare', validation);
+                                      return;
+                                    }
                                     dotDuration = wrapper.obj["dotDuration"];
                                     dashDuration = wrapper.obj["dashDuration"];
                                     betweenLettersDuration = wrapper.obj["betweenLettersDuration"];

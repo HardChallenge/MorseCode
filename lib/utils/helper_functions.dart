@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:torch_light/torch_light.dart';
 
+import 'alert_builder.dart';
 import 'morse_coding.dart';
 import 'package:flutter_sms/flutter_sms.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -68,7 +69,7 @@ Future<String?> getFirstMorseMessageWith(String phoneNumber) async {
   return messages.isEmpty ? '' : messages[0].body;
 }
 
-void buildDialog(BuildContext context, String title, String content) {
+void buildErrorDialog(BuildContext context, String title, String description) {
   showDialog(
     context: context,
     builder: (BuildContext context) {
@@ -76,7 +77,7 @@ void buildDialog(BuildContext context, String title, String content) {
         backgroundColor: Colors.amber[100],
         title: Center(child: Text(title)),
         content: SingleChildScrollView(
-          child: Text(content, textAlign: TextAlign.center),
+          child: Text(description, textAlign: TextAlign.center),
         ),
         actions: [
           TextButton(
@@ -113,4 +114,21 @@ Future<void> turnOffTorch() async {
   } on Exception catch (_) {
     print('Error turning off torch');
   }
+}
+
+String isValidConfiguration(Wrapper wrapper) {
+  Duration dotDuration = wrapper.obj["dotDuration"], dashDuration = wrapper.obj["dashDuration"], betweenWordsDuration = wrapper.obj["betweenWordsDuration"], betweenLettersDuration = wrapper.obj["betweenLettersDuration"];
+  if (dotDuration.inMilliseconds < 10){
+    return '"Dot duration" trebuie sa aiba o valoare de minim 10 ms.';
+  }
+  if (dashDuration.inMilliseconds < 100){
+    return '"Dash duration" trebuie sa aiba o valoare de minim 100 ms.';
+  }
+  if (betweenWordsDuration.inMilliseconds < 200){
+    return '"Between words" trebuie sa aiba o valoare de minim 200 ms.';
+  }
+  if (betweenLettersDuration.inMilliseconds < 10){
+    return '"Between letters" trebuie sa aiba o valoare de minim 10 ms.';
+  }
+  return '';
 }
