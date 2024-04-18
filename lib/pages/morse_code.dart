@@ -80,11 +80,11 @@ class MorseCodeState extends State<MorseCode> with SingleTickerProviderStateMixi
           }
           // Așteaptă durata curentă înainte de a trece la următoarea literă
           await Future.delayed(currentDuration);
+          // Așteaptă un scurt timp între luminare și stingere
           setState(() {
             // Resetarea culorii la negru după expirarea duratei
             _circleColor = _offColor;
           });
-          // Așteaptă un scurt timp între luminare și stingere
           await Future.delayed(currentDuration);
           if (_useTorch) {
             await turnOffTorch();

@@ -12,7 +12,7 @@ class SendSMS extends StatefulWidget {
 
 class _SendSMSState extends State<SendSMS> {
   String _prefix = "Romania (+40)",
-      _phoneNumber = "723 523 103",
+      _phoneNumber = '',
       _message = '';
 
   @override
@@ -75,6 +75,14 @@ class _SendSMSState extends State<SendSMS> {
               const SizedBox(height: 40),
               ElevatedButton(
                   onPressed: () {
+                    if (_message.isEmpty) {
+                      buildErrorDialog(context, "Eroare", "Mesjaul transmis nu poate fi gol.");
+                      return;
+                    }
+                    if (_phoneNumber.isEmpty) {
+                      buildErrorDialog(context, "Eroare", "Numărul de telefon nu poate fi gol.");
+                      return;
+                    }
                     String recipient = _prefix.substring(_prefix.indexOf("(") + 1, _prefix.indexOf(")")) + _phoneNumber.trim().replaceAll(" ", "");
                     sendMorseCode(_message, recipient);
                   },

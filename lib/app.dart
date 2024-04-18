@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:morse_code_project/navigation.dart';
+import 'package:morse_code_project/components/navigation.dart';
 import 'package:morse_code_project/pages/morse_code.dart';
 import 'package:morse_code_project/pages/send_sms.dart';
 

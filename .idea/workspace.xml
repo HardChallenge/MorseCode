@@ -4,11 +4,13 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="36e8f956-d867-4173-88ac-a4bbd6f7b22e" name="Changes" comment="Changed dotDuration 200-&gt;100ms for better visibility and between letters (50-&gt;100)">
+    <list default="true" id="36e8f956-d867-4173-88ac-a4bbd6f7b22e" name="Changes" comment="Added validation for configuration">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/morse_code.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/morse_code.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/utils/alert_builder.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/utils/alert_builder.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/utils/helper_functions.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/utils/helper_functions.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/app.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/assets/images/sea.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/navigation.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/components/navigation.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pages/send_sms.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/send_sms.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,6 +71,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/lib/components" />
       <recent name="$PROJECT_DIR$/lib/assets/images" />
       <recent name="$PROJECT_DIR$" />
     </key>
@@ -160,7 +163,15 @@
       <option name="project" value="LOCAL" />
       <updated>1713378948583</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Added validation for configuration">
+      <option name="closed" value="true" />
+      <created>1713427728096</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1713427728096</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -195,6 +206,7 @@
     <MESSAGE value="Added flashlight functionality" />
     <MESSAGE value="Added minimal styling to components" />
     <MESSAGE value="Changed dotDuration 200-&gt;100ms for better visibility and between letters (50-&gt;100)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changed dotDuration 200-&gt;100ms for better visibility and between letters (50-&gt;100)" />
+    <MESSAGE value="Added validation for configuration" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added validation for configuration" />
   </component>
 </project>
