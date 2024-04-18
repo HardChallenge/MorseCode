@@ -76,7 +76,7 @@ class _SendSMSState extends State<SendSMS> {
               ElevatedButton(
                   onPressed: () {
                     if (_message.isEmpty) {
-                      buildErrorDialog(context, "Eroare", "Mesjaul transmis nu poate fi gol.");
+                      buildErrorDialog(context, "Eroare", "Mesajul transmis nu poate fi gol.");
                       return;
                     }
                     if (_phoneNumber.isEmpty) {

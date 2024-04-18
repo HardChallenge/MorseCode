@@ -26,11 +26,10 @@ String fromTextToMorse(String text) {
 
 void sendMorseCode(String text, String recipient) async {
   String morse = fromTextToMorse(text);
-  String result = await sendSMS(message: morse, recipients: [recipient])
+  await sendSMS(message: morse, recipients: [recipient])
       .catchError((onError) {
-    print(onError);
+        return 'Error sending SMS: $onError';
   });
-  print(result);
 }
 
 bool isValidMorse(String? morse) {
@@ -117,12 +116,15 @@ Future<void> turnOffTorch() async {
 }
 
 String isValidConfiguration(Wrapper wrapper) {
-  Duration dotDuration = wrapper.obj["dotDuration"], dashDuration = wrapper.obj["dashDuration"], betweenWordsDuration = wrapper.obj["betweenWordsDuration"], betweenLettersDuration = wrapper.obj["betweenLettersDuration"];
+  Duration dotDuration = wrapper.obj["dotDuration"], dashDuration = wrapper.obj["dashDuration"], betweenWordsDuration = wrapper.obj["betweenWordsDuration"], betweenLettersDuration = wrapper.obj["betweenLettersDuration"], betweenMorseDuration = wrapper.obj["betweenMorseDuration"];
   if (dotDuration.inMilliseconds < 10){
     return '"Dot duration" trebuie sa aiba o valoare de minim 10 ms.';
   }
   if (dashDuration.inMilliseconds < 100){
     return '"Dash duration" trebuie sa aiba o valoare de minim 100 ms.';
+  }
+  if (betweenMorseDuration.inMilliseconds < 10){
+    return '"Between morse" trebuie sa aiba o valoare de minim 10 ms.';
   }
   if (betweenWordsDuration.inMilliseconds < 200){
     return '"Between words" trebuie sa aiba o valoare de minim 200 ms.';

@@ -24,12 +24,14 @@ class MorseCodeState extends State<MorseCode> with SingleTickerProviderStateMixi
 
   late TextEditingController _messageController;
   late TextEditingController _transmittedMessageController;
-  late TextEditingController dotDurationController, dashDurationController, betweenLettersDurationController, betweenWordsDurationController;
+  late TextEditingController dotDurationController, dashDurationController;
+  late TextEditingController betweenLettersDurationController, betweenWordsDurationController, betweenMorseDurationController;
 
   Duration dotDuration = const Duration(milliseconds: 100);
   Duration dashDuration = const Duration(milliseconds: 500);
-  Duration betweenLettersDuration = const Duration(milliseconds: 100);
+  Duration betweenLettersDuration = const Duration(milliseconds: 200);
   Duration betweenWordsDuration = const Duration(milliseconds: 400);
+  Duration betweenMorseDuration = const Duration(milliseconds: 100);
   Duration currentDuration = const Duration();
 
   final Color _offColor = Colors.black, _onColor = Colors.red[500]!;
@@ -40,10 +42,6 @@ class MorseCodeState extends State<MorseCode> with SingleTickerProviderStateMixi
     setState(() {
       _circleColor = _onColor;
     });
-  }
-
-  void updateUseTorch(bool value){
-    _useTorch = value;
   }
 
   void _animateMorse(String morseCode) async {
@@ -78,24 +76,26 @@ class MorseCodeState extends State<MorseCode> with SingleTickerProviderStateMixi
           if (_useTorch) {
             await turnOnTorch();
           }
-          // Așteaptă durata curentă înainte de a trece la următoarea literă
+          // Wait for circle to lighten up
           await Future.delayed(currentDuration);
-          // Așteaptă un scurt timp între luminare și stingere
+          // Wait for morse code duration (set in configuration)
+          await Future.delayed(currentDuration);
           setState(() {
-            // Resetarea culorii la negru după expirarea duratei
+            // Resetting the circle color
             _circleColor = _offColor;
           });
-          await Future.delayed(currentDuration);
           if (_useTorch) {
             await turnOffTorch();
           }
 
-          // Asteeapta un timp între litere
-          await Future.delayed(betweenLettersDuration);
+          // Wait between Morse codes
+          await Future.delayed(betweenMorseDuration);
         }
-        // Așteaptă 500ms între litere
-        await Future.delayed(betweenWordsDuration);
+        // Wait for the duration between letters
+        await Future.delayed(betweenLettersDuration);
       }
+      // Wait for the duration between words
+      await Future.delayed(betweenWordsDuration);
       _textTransmitted += ' ';
     }
   }
@@ -112,12 +112,18 @@ class MorseCodeState extends State<MorseCode> with SingleTickerProviderStateMixi
     dashDurationController = TextEditingController(text: dashDuration.inMilliseconds.toString());
     betweenLettersDurationController = TextEditingController(text: betweenLettersDuration.inMilliseconds.toString());
     betweenWordsDurationController = TextEditingController(text: betweenWordsDuration.inMilliseconds.toString());
+    betweenMorseDurationController = TextEditingController(text: betweenMorseDuration.inMilliseconds.toString());
   }
 
   @override
   void dispose() {
     _messageController.dispose();
     _transmittedMessageController.dispose();
+    dotDurationController.dispose();
+    dashDurationController.dispose();
+    betweenLettersDurationController.dispose();
+    betweenWordsDurationController.dispose();
+    betweenMorseDurationController.dispose();
     super.dispose();
   }
 
@@ -301,11 +307,13 @@ class MorseCodeState extends State<MorseCode> with SingleTickerProviderStateMixi
                       "dashDuration": dashDuration,
                       "betweenLettersDuration": betweenLettersDuration,
                       "betweenWordsDuration": betweenWordsDuration,
+                      "betweenMorseDuration": betweenMorseDuration,
                       "useTorch": _hasTorch,
                       "dotDurationController": dotDurationController,
                       "dashDurationController": dashDurationController,
                       "betweenLettersDurationController": betweenLettersDurationController,
-                      "betweenWordsDurationController": betweenWordsDurationController
+                      "betweenWordsDurationController": betweenWordsDurationController,
+                      "betweenMorseDurationController": betweenMorseDurationController
                       });
 
                   SingleChildScrollView dialogContent = buildMorseTransmissionContent(wrapper);
@@ -331,6 +339,7 @@ class MorseCodeState extends State<MorseCode> with SingleTickerProviderStateMixi
                                     dashDuration = wrapper.obj["dashDuration"];
                                     betweenLettersDuration = wrapper.obj["betweenLettersDuration"];
                                     betweenWordsDuration = wrapper.obj["betweenWordsDuration"];
+                                    betweenMorseDuration = wrapper.obj["betweenMorseDuration"];
                                     if (_messageImported!.isNotEmpty){
                                       // Prioritize the imported message
                                       morseCodeToBeTransmitted = _messageImported!;

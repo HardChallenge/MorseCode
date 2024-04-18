@@ -83,10 +83,10 @@ SingleChildScrollView buildMorseTransmissionContent(Wrapper wrapper){
           }),
         const SizedBox(height: 20),
         TextField(
-          controller: wrapper.obj["betweenWordsDurationController"],
+          controller: wrapper.obj["betweenMorseDurationController"],
           keyboardType: TextInputType.number,
           decoration: const InputDecoration(
-            labelText: 'Between words (ms)',
+            labelText: 'Between morse (ms)',
             prefixIcon: Icon(Icons.timer),
             border: OutlineInputBorder(),
           ),
@@ -95,11 +95,12 @@ SingleChildScrollView buildMorseTransmissionContent(Wrapper wrapper){
               return;
             }
             try {
-              wrapper.obj["betweenWordsDuration"] = Duration(milliseconds: int.parse(value));
+              wrapper.obj["betweenMorseDuration"] = Duration(milliseconds: int.parse(value));
             } catch (e) {
               print(e);
             }
-          }),
+          }
+        ),
         const SizedBox(height: 20),
         TextField(
           controller: wrapper.obj["betweenLettersDurationController"],
@@ -119,7 +120,25 @@ SingleChildScrollView buildMorseTransmissionContent(Wrapper wrapper){
               print(e);
             }
           }),
-        const SizedBox(height: 20)
+        const SizedBox(height: 20),
+        TextField(
+            controller: wrapper.obj["betweenWordsDurationController"],
+            keyboardType: TextInputType.number,
+            decoration: const InputDecoration(
+              labelText: 'Between words (ms)',
+              prefixIcon: Icon(Icons.timer),
+              border: OutlineInputBorder(),
+            ),
+            onChanged: (String value) {
+              if (value.isEmpty) {
+                return;
+              }
+              try {
+                wrapper.obj["betweenWordsDuration"] = Duration(milliseconds: int.parse(value));
+              } catch (e) {
+                print(e);
+              }
+            })
       ],
     )
   );
