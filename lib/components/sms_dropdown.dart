@@ -8,10 +8,10 @@ class SMSDropdown extends StatefulWidget {
   const SMSDropdown({super.key, this.initialValue, this.onChanged});
 
   @override
-  _SMSDropdownState createState() => _SMSDropdownState();
+  SMSDropdownState createState() => SMSDropdownState();
 }
 
-class _SMSDropdownState extends State<SMSDropdown> {
+class SMSDropdownState extends State<SMSDropdown> {
   String? _selectedValue;
 
   @override

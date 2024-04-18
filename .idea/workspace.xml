@@ -4,11 +4,18 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="36e8f956-d867-4173-88ac-a4bbd6f7b22e" name="Changes" comment="Added validation for SendSMS">
+    <list default="true" id="36e8f956-d867-4173-88ac-a4bbd6f7b22e" name="Changes" comment="Synced flashlight with circle, added duration between morse codes (dots and dashes)">
+      <change afterPath="$PROJECT_DIR$/lib/builders/morse_builder.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/utils/torch_handler.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/validators/configuration.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/validators/morse.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/app.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/components/sms_dropdown.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/components/sms_dropdown.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/pages/morse_code.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/morse_code.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/pages/send_sms.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/send_sms.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/utils/alert_builder.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/utils/alert_builder.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/utils/alert_builder.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/builders/alert_builder.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/utils/helper_functions.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/utils/helper_functions.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -70,6 +77,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/lib/builders" />
       <recent name="$PROJECT_DIR$/lib/components" />
       <recent name="$PROJECT_DIR$/lib/assets/images" />
       <recent name="$PROJECT_DIR$" />
@@ -178,7 +186,15 @@
       <option name="project" value="LOCAL" />
       <updated>1713428821130</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Synced flashlight with circle, added duration between morse codes (dots and dashes)">
+      <option name="closed" value="true" />
+      <created>1713430543399</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1713430543399</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -215,6 +231,7 @@
     <MESSAGE value="Changed dotDuration 200-&gt;100ms for better visibility and between letters (50-&gt;100)" />
     <MESSAGE value="Added validation for configuration" />
     <MESSAGE value="Added validation for SendSMS" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added validation for SendSMS" />
+    <MESSAGE value="Synced flashlight with circle, added duration between morse codes (dots and dashes)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Synced flashlight with circle, added duration between morse codes (dots and dashes)" />
   </component>
 </project>

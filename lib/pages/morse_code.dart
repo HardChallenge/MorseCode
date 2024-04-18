@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:morse_code_project/utils/helper_functions.dart';
 import 'package:morse_code_project/utils/morse_coding.dart';
 
-import '../utils/alert_builder.dart';
+import '../builders/alert_builder.dart';
+import '../builders/morse_builder.dart';
+import '../utils/torch_handler.dart';
+import '../validators/configuration.dart';
 
 class MorseCode extends StatefulWidget {
   const MorseCode({super.key});
@@ -14,10 +17,10 @@ class MorseCode extends StatefulWidget {
 }
 
 class MorseCodeState extends State<MorseCode> with SingleTickerProviderStateMixin {
-  bool _isTransmitting = false;
-  String _currentLetter = '-';
+  static bool isTransmitting = false;
+  static String currentLetter = '-';
   String? _messageField = '', _messageImported = '', morseCodeToBeTransmitted = '';
-  double componentSize = 120.0;
+  static double componentSize = 120.0;
   String _textTransmitted = '';
   String _prefix = "Romania (+40)", _phoneNumber = "723 523 103";
   bool _hasTorch = false, _useTorch = false;
@@ -32,39 +35,39 @@ class MorseCodeState extends State<MorseCode> with SingleTickerProviderStateMixi
   Duration betweenLettersDuration = const Duration(milliseconds: 200);
   Duration betweenWordsDuration = const Duration(milliseconds: 400);
   Duration betweenMorseDuration = const Duration(milliseconds: 100);
-  Duration currentDuration = const Duration();
+  static Duration currentDuration = const Duration();
 
   final Color _offColor = Colors.black, _onColor = Colors.red[500]!;
 
-  Color _circleColor = Colors.black;
+  static Color circleColor = Colors.black;
 
   void _animateCode(){
     setState(() {
-      _circleColor = _onColor;
+      circleColor = _onColor;
     });
   }
 
   void _animateMorse(String morseCode) async {
     List<String> phrases = morseCode.trim().split('\n');
 
-    for (int i = 0; i < phrases.length && _isTransmitting; i++) {
+    for (int i = 0; i < phrases.length && isTransmitting; i++) {
       String phrase = phrases[i];
 
       List<String> words = phrase.trim().split(RegExp(r"\s+"));
-      for (int j = 0; j < words.length && _isTransmitting; j++) {
+      for (int j = 0; j < words.length && isTransmitting; j++) {
         String word = words[j];
         String? letter = morseToLetter[word];
         if (letter == null) {
           continue;
         }
-        _currentLetter = letter;
+        currentLetter = letter;
         _textTransmitted += letter;
         setState(() {
           _transmittedMessageController.text = _textTransmitted;
         });
         List<String> letters = word.trim().split('');
 
-        for (int k = 0; k < letters.length && _isTransmitting; k++) {
+        for (int k = 0; k < letters.length && isTransmitting; k++) {
           if (letters[k] == '.') {
             currentDuration = dotDuration;
           } else if (letters[k] == '-') {
@@ -82,7 +85,7 @@ class MorseCodeState extends State<MorseCode> with SingleTickerProviderStateMixi
           await Future.delayed(currentDuration);
           setState(() {
             // Resetting the circle color
-            _circleColor = _offColor;
+            circleColor = _offColor;
           });
           if (_useTorch) {
             await turnOffTorch();
@@ -129,43 +132,7 @@ class MorseCodeState extends State<MorseCode> with SingleTickerProviderStateMixi
 
   @override
   Widget build(BuildContext context) {
-    SingleChildScrollView upper = SingleChildScrollView(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          _isTransmitting ? const SizedBox() :
-          const Text("Send Morse Code",
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center),
-          _isTransmitting ? const SizedBox() : const SizedBox(height: 20.0),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-          Expanded(
-            flex: 2,
-            child: AnimatedContainer(
-              duration: Duration(milliseconds: currentDuration.inMilliseconds),
-              width: componentSize,
-              height: componentSize,
-              decoration: BoxDecoration(
-                color: _circleColor,
-                shape: BoxShape.circle,
-              ),
-              curve: Curves.easeOutCirc,
-            ),
-          ),
-          SizedBox(width: componentSize / 5.0),
-          Expanded(
-            flex: 1,
-            child: Text(
-              _currentLetter,
-              style: TextStyle(fontSize: componentSize / 2.0, fontWeight: FontWeight.bold)
-            ),
-          ),
-        ],
-      )],
-      )
-    );
+    SingleChildScrollView upper = buildUpperMorse();
 
     Wrapper wrapper = Wrapper({"prefix": _prefix, "phoneNumber" : _phoneNumber});
 
@@ -240,7 +207,7 @@ class MorseCodeState extends State<MorseCode> with SingleTickerProviderStateMixi
                           }
                       );
                     },
-                    child: Text("Importa mesaj din SMS"),
+                    child: const Text("Importa mesaj din SMS"),
                   )
                   ),
                   const SizedBox(width: 20.0),
@@ -330,7 +297,7 @@ class MorseCodeState extends State<MorseCode> with SingleTickerProviderStateMixi
                                 alignment: Alignment.center,
                                 child: TextButton(
                                   onPressed: () {
-                                    String validation = isValidConfiguration(wrapper);
+                                    String validation = validateConfiguration(wrapper);
                                     if (validation != ''){
                                       buildErrorDialog(context, 'Eroare', validation);
                                       return;
@@ -347,7 +314,7 @@ class MorseCodeState extends State<MorseCode> with SingleTickerProviderStateMixi
                                       morseCodeToBeTransmitted = fromTextToMorse(_messageField!);
                                     }
                                     componentSize *= 2;
-                                    _isTransmitting = true;
+                                    isTransmitting = true;
                                     debugPrint("Use Torch: $_useTorch");
                                     Navigator.of(context).pop();
                                     _animateMorse(morseCodeToBeTransmitted!);
@@ -360,7 +327,7 @@ class MorseCodeState extends State<MorseCode> with SingleTickerProviderStateMixi
                       });
                 });
               },
-              child: Text("Transmite mesaj"),
+              child: const Text("Transmite mesaj"),
             ),
           ],
         )
@@ -381,17 +348,17 @@ class MorseCodeState extends State<MorseCode> with SingleTickerProviderStateMixi
             ElevatedButton(
               onPressed: () {
                 setState(() {
-                  _currentLetter = '-';
-                  _circleColor = Colors.black;
+                  currentLetter = '-';
+                  circleColor = Colors.black;
                   _textTransmitted = '';
                   setState(() {
                     _transmittedMessageController.text = _textTransmitted;
                   });
                   componentSize /= 2;
-                  _isTransmitting = false;
+                  isTransmitting = false;
                 });
               },
-              child: Text("STOP"),
+              child: const Text("STOP"),
             ),
           ],
         )
@@ -406,7 +373,7 @@ class MorseCodeState extends State<MorseCode> with SingleTickerProviderStateMixi
             children: [
               upper,
               const SizedBox(height: 20.0),
-              _isTransmitting ? lowerTransmitting : lowerStandBy
+              isTransmitting ? lowerTransmitting : lowerStandBy
             ],
           ),
         ),

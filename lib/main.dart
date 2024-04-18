@@ -11,6 +11,6 @@ class MorseCode extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(title: 'Morse Code App', home: App());
+    return const MaterialApp(title: 'Morse Master', home: App());
   }
 }

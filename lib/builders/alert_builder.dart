@@ -143,3 +143,26 @@ SingleChildScrollView buildMorseTransmissionContent(Wrapper wrapper){
     )
   );
 }
+
+void buildErrorDialog(BuildContext context, String title, String description) {
+  showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.amber[100],
+          title: Center(child: Text(title)),
+          content: SingleChildScrollView(
+            child: Text(description, textAlign: TextAlign.center),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Center(child: Text('OK')),
+            )
+          ],
+        );
+      }
+  );
+}

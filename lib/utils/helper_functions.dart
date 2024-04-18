@@ -1,7 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:torch_light/torch_light.dart';
-
-import 'alert_builder.dart';
+import '../validators/morse.dart';
 import 'morse_coding.dart';
 import 'package:flutter_sms/flutter_sms.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -24,33 +21,12 @@ String fromTextToMorse(String text) {
   return morse;
 }
 
-void sendMorseCode(String text, String recipient) async {
+Future<void> sendMorseCode(String text, String recipient) async {
   String morse = fromTextToMorse(text);
   await sendSMS(message: morse, recipients: [recipient])
       .catchError((onError) {
         return 'Error sending SMS: $onError';
   });
-}
-
-bool isValidMorse(String? morse) {
-  if (morse == null) {
-    return false;
-  }
-
-  List<String> words = morse.trim().split('\n');
-  for (int i = 0; i < words.length; i++) {
-    String word = words[i];
-    List<String> letters = word.trim().split(' ');
-    for (int j = 0; j < letters.length; j++) {
-      if (letters[j] == "?"){
-        continue;
-      }
-      if (morseToLetter[letters[j]] == null) {
-        return false;
-      }
-    }
-  }
-  return true;
 }
 
 Future<String?> getFirstMorseMessageWith(String phoneNumber) async {
@@ -65,72 +41,9 @@ Future<String?> getFirstMorseMessageWith(String phoneNumber) async {
                                       kinds: [SmsQueryKind.inbox, SmsQueryKind.sent]
                                     );
 
-  return messages.isEmpty ? '' : messages[0].body;
-}
+  List<SmsMessage> morseMessages = messages.where((message) {
+    return isValidMorse(message.body);
+  }).toList();
 
-void buildErrorDialog(BuildContext context, String title, String description) {
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        backgroundColor: Colors.amber[100],
-        title: Center(child: Text(title)),
-        content: SingleChildScrollView(
-          child: Text(description, textAlign: TextAlign.center),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: Center(child: Text('OK')),
-          )
-        ],
-      );
-    }
-  );
-}
-
-Future<bool> isTorchAvailable() async {
-  try {
-    return await TorchLight.isTorchAvailable();
-  } on Exception catch (_) {
-    return false;
-  }
-}
-
-Future<void> turnOnTorch() async {
-  try {
-    await TorchLight.enableTorch();
-  } on Exception catch (_) {
-    print('Error turning on torch');
-  }
-}
-
-Future<void> turnOffTorch() async {
-  try {
-    await TorchLight.disableTorch();
-  } on Exception catch (_) {
-    print('Error turning off torch');
-  }
-}
-
-String isValidConfiguration(Wrapper wrapper) {
-  Duration dotDuration = wrapper.obj["dotDuration"], dashDuration = wrapper.obj["dashDuration"], betweenWordsDuration = wrapper.obj["betweenWordsDuration"], betweenLettersDuration = wrapper.obj["betweenLettersDuration"], betweenMorseDuration = wrapper.obj["betweenMorseDuration"];
-  if (dotDuration.inMilliseconds < 10){
-    return '"Dot duration" trebuie sa aiba o valoare de minim 10 ms.';
-  }
-  if (dashDuration.inMilliseconds < 100){
-    return '"Dash duration" trebuie sa aiba o valoare de minim 100 ms.';
-  }
-  if (betweenMorseDuration.inMilliseconds < 10){
-    return '"Between morse" trebuie sa aiba o valoare de minim 10 ms.';
-  }
-  if (betweenWordsDuration.inMilliseconds < 200){
-    return '"Between words" trebuie sa aiba o valoare de minim 200 ms.';
-  }
-  if (betweenLettersDuration.inMilliseconds < 10){
-    return '"Between letters" trebuie sa aiba o valoare de minim 10 ms.';
-  }
-  return '';
+  return morseMessages.isNotEmpty ? morseMessages.first.body : '';
 }
